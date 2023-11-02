@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Todo({ data }) {
+function Todo({ data, key }) {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState(data.text);
   async function handleSave(e) {
