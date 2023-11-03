@@ -18,8 +18,8 @@ function AddTodo() {
         className="btn btn-accent mx-5"
         onClick={
           async () =>
-            await fetch("https://rahanik.iran.liara.run/add", {
-              method: "post",
+            await fetch("https://rahanik.iran.liara.run", {
+              method: "POST",
               headers: {
                 "Content-Type":
                   "application/x-www-form-urlencoded;charset=UTF-8",
@@ -35,7 +35,7 @@ function AddTodo() {
           //     .then((res) => console.log(res.data))
         }
       >
-        Accent
+        add
       </button>
     </>
   );

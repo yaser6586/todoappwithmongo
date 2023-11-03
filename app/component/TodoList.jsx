@@ -19,7 +19,7 @@ function TodoList({ data }) {
         <tbody>
           {/* row 1 */}
           {todos.map((dt) => (
-            <Todo key={dt.id} data={dt} />
+            <Todo key={dt._id} data={dt} />
           ))}
         </tbody>
       </table>

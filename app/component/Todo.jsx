@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Todo({ data, key }) {
+function Todo({ data }) {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState(data.text);
   async function handleSave(e) {
@@ -18,6 +18,22 @@ function Todo({ data, key }) {
     //             text : value
     //             })
   }
+  async function handleDelete(id) {
+    await fetch("https://rahanik.iran.liara.run/" + id, {
+      method: "DELETE",
+    });
+  }
+  async function handleEdit(id) {
+    // await fetch("https://rahanik.iran.liara.run/" + id, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    //   },
+    //   body: `text=${value}`,
+    // });
+    setIsEdit(false);
+    console.log(value);
+  }
   let content = null;
   if (!isEdit) {
     content = (
@@ -31,7 +47,12 @@ function Todo({ data, key }) {
             >
               edit
             </button>
-            <button className="btn btn-sm bg-error w-24">delete</button>
+            <button
+              className="btn btn-sm bg-error w-24"
+              onClick={() => handleDelete(data._id)}
+            >
+              delete
+            </button>
           </td>
         </tr>
       </>
@@ -50,7 +71,7 @@ function Todo({ data, key }) {
           <td>
             <button
               className="btn btn-sm bg-success w-24"
-              onClick={(e) => handleSave(e)}
+              onClick={() => handleEdit(data._id)}
             >
               save
             </button>

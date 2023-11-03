@@ -10,7 +10,7 @@ export async function getTodo() {
 export default async function Home({}) {
   const data = await getTodo();
   return (
-    <div className="h-screen text-center my-10">
+    <div className="min-w-fit text-center my-10">
       <AddTodo />
       <TodoList data={data} />
     </div>
