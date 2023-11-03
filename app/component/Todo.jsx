@@ -21,16 +21,16 @@ function Todo({ data }) {
   async function handleDelete(id) {
     await fetch("https://rahanik.iran.liara.run/" + id, {
       method: "DELETE",
-    });
+    }).then((res) => console.log(res));
   }
   async function handleEdit(id) {
-    // await fetch("https://rahanik.iran.liara.run/" + id, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-    //   },
-    //   body: `text=${value}`,
-    // });
+    await fetch("https://rahanik.iran.liara.run", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: `text=${value}&id=${id}`,
+    });
     setIsEdit(false);
     console.log(value);
   }
