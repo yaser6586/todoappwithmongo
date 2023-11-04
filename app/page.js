@@ -8,10 +8,13 @@ export default function Home() {
   const { todoData, isLoading } = useTodo();
 
   return (
-    <div className="min-w-fit text-center my-10">
+    <div className="min-h-screen text-center my-10">
       <AddTodo />
-      {isLoading && <div className="text-xl text-center ">loading...</div>}
-      {todoData && <TodoList data={todoData} />}
+      {isLoading ? (
+        <div className="text-2xl text-center pt-14">loading ...</div>
+      ) : (
+        <TodoList data={todoData} />
+      )}
     </div>
   );
 }
