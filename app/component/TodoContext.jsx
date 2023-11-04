@@ -11,15 +11,17 @@ const ToDoContextProvider = createContext(null);
 // }
 function TodoContext({ children }) {
   const [todoData, setTodoData] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setTimeout(async () => {
       const res = await fetch("https://rahanik.iran.liara.run");
       const todo = await res.json();
       setTodoData(todo);
+      setIsLoading(false);
     }, 1000);
   }, []);
   return (
-    <ToDoContextProvider.Provider value={{ todoData, setTodoData }}>
+    <ToDoContextProvider.Provider value={{ todoData, setTodoData, isLoading }}>
       {children}
     </ToDoContextProvider.Provider>
   );
