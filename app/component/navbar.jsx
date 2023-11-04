@@ -27,24 +27,26 @@ function Navbar() {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 "
           >
             <li>
-              <Link href='/'>home</Link>
+              <Link href={"/"}>home</Link>
             </li>
 
             <li>
-              <a>about</a>
+              <Link href={"about"}>about</Link>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">todo</a>
+        <Link href={"/"} className="btn btn-ghost normal-case text-xl">
+          todo
+        </Link>
       </div>
       <div className="navbar-center hidden   lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href='/'>home</Link>
+            <Link href={"/"}>home</Link>
           </li>
 
           <li>
-            <a>about</a>
+            <Link href={"about"}>about</Link>
           </li>
         </ul>
       </div>
