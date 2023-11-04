@@ -12,6 +12,7 @@ const ToDoContextProvider = createContext(null);
 function TodoContext({ children }) {
   const [todoData, setTodoData] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     setTimeout(async () => {
       const res = await fetch("https://rahanik.iran.liara.run", {
@@ -26,7 +27,9 @@ function TodoContext({ children }) {
     }, 1000);
   }, []);
   return (
-    <ToDoContextProvider.Provider value={{ todoData, setTodoData, isLoading }}>
+    <ToDoContextProvider.Provider
+      value={{ todoData, setTodoData, isLoading, isLogin, setIsLogin }}
+    >
       {children}
     </ToDoContextProvider.Provider>
   );
