@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="min-w-fit text-center my-10">
       <AddTodo />
-      <TodoList data={todoData} />
+      {todoData && <TodoList data={todoData} />}
     </div>
   );
 }

@@ -18,7 +18,9 @@ function TodoList({ data }) {
         </thead>
         <tbody>
           {/* row 1 */}
-          {data && data.map((dt) => <Todo key={dt._id} data={dt} />)}
+          {data.map((dt) => (
+            <Todo key={dt._id} data={dt} />
+          ))}
         </tbody>
       </table>
     </div>
