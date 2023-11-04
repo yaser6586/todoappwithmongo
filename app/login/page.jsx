@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useTodo } from "../component/TodoContext";
 import { redirect } from "next/navigation";
 
-function login() {
+function Login() {
   const { isLogin, setIsLogin } = useTodo();
   const [signIn, setSignIn] = useState({
     username: "",
@@ -69,4 +69,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;
