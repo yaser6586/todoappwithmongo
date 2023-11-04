@@ -14,7 +14,12 @@ function TodoContext({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setTimeout(async () => {
-      const res = await fetch("https://rahanik.iran.liara.run");
+      const res = await fetch("https://rahanik.iran.liara.run", {
+        method: "GET",
+        headers: {
+          Authorization: `Basic ${btoa(`test:test`)}`,
+        },
+      });
       const todo = await res.json();
       setTodoData(todo);
       setIsLoading(false);

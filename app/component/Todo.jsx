@@ -34,6 +34,9 @@ function Todo({ data }) {
     setTodoData(todoData.filter((dt) => dt._id !== data._id));
     await fetch("https://rahanik.iran.liara.run/" + id, {
       method: "DELETE",
+      headers: {
+        Authorization: `Basic ${btoa(`test:test`)}`,
+      },
     }).then((res) => console.log(res));
     // setIsDeleted(true);
   }
@@ -42,6 +45,7 @@ function Todo({ data }) {
       method: "PATCH",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        Authorization: `Basic ${btoa(`test:test`)}`,
       },
       body: `text=${value}&id=${id}`,
     });

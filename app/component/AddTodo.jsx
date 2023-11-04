@@ -30,6 +30,7 @@ function AddTodo() {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+              Authorization: `Basic ${btoa(`test:test`)}`,
             },
             body: `text=${input}`,
           })
