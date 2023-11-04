@@ -1,27 +1,41 @@
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
+import { useTodo } from "./TodoContext";
 
 function Todo({ data }) {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState(data.text);
-  async function handleSave(e) {
-    console.log(value, data.id);
-    setIsEdit(false);
-    //     fetch('http://localhost:3000/api/edit' , {
-    //         method: "post",
-    //         headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //         },
+  const { todoData, setTodoData } = useTodo();
 
-    //         body: JSON.stringify({
-    //             id : data.id ,
-    //             text : value
-    //             })
-  }
+  // const [isSaved, setIsSaved] = useState(false);
+  // const [isDeleted, setIsDeleted] = useState(false);
+  // if (isSaved) {
+  //   redirect("/");
+  // }
+  // if (isDeleted) {
+  //   redirect("/");
+  // }
+  // async function handleSave(e) {
+  //   console.log(value, data.id);
+  //   setIsEdit(false);
+  //     fetch('http://localhost:3000/api/edit' , {
+  //         method: "post",
+  //         headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json'
+  //         },
+
+  //         body: JSON.stringify({
+  //             id : data.id ,
+  //             text : value
+  //             })
+  // }
   async function handleDelete(id) {
+    setTodoData(todoData.filter((dt) => dt._id !== data._id));
     await fetch("https://rahanik.iran.liara.run/" + id, {
       method: "DELETE",
     }).then((res) => console.log(res));
+    // setIsDeleted(true);
   }
   async function handleEdit(id) {
     await fetch("https://rahanik.iran.liara.run", {
@@ -31,8 +45,19 @@ function Todo({ data }) {
       },
       body: `text=${value}&id=${id}`,
     });
+
+    // setIsSaved(true);
+
+    const newData = todoData.map((todos) => {
+      if (todos._id === id) {
+        return { ...todos, text: value };
+      } else {
+        return todos;
+      }
+    });
+    setTodoData(newData);
+
     setIsEdit(false);
-    console.log(value);
   }
   let content = null;
   if (!isEdit) {

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Todo from "./Todo";
 
 function TodoList({ data }) {
-  const [todos, setTodos] = useState(data);
+  // const [todos, setTodos] = useState(data);
 
   return (
     <div className="overflow-x-auto w-3/4 text-center m-auto">
@@ -18,9 +18,7 @@ function TodoList({ data }) {
         </thead>
         <tbody>
           {/* row 1 */}
-          {todos.map((dt) => (
-            <Todo key={dt._id} data={dt} />
-          ))}
+          {data && data.map((dt) => <Todo key={dt._id} data={dt} />)}
         </tbody>
       </table>
     </div>
