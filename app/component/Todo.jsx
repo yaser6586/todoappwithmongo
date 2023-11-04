@@ -63,7 +63,7 @@ function Todo({ data }) {
   if (!isEdit) {
     content = (
       <>
-        <tr className="bg-base-200">
+        <tr className="bg-base-200 my-2">
           <td id={data.id}>{data.text}</td>
           <td>
             <button
@@ -85,9 +85,10 @@ function Todo({ data }) {
   } else {
     content = (
       <>
-        <tr className="bg-base-200">
+        <tr className="bg-base-200 my-2">
           <td id={data.id}>
             <input
+              className=" lg:input "
               type="text"
               value={value}
               onChange={(e) => setValue(e.target.value)}
