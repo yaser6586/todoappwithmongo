@@ -45,7 +45,7 @@ function AddTodo() {
         //     .post("https://rahanik.iran.liara.run/add", { text: input })
         //     .then((res) => console.log(res.data))
       >
-        <Add></Add>
+        add
       </button>
     </>
   );
