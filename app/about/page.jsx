@@ -1,7 +1,14 @@
+"use client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
+import { useTodo } from "../component/TodoContext";
 
 function About() {
+  const { isLogin } = useTodo();
+  if (!isLogin) {
+    redirect("/login");
+  }
   return (
     <>
       <div

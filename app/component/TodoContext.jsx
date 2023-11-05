@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ToDoContextProvider = createContext(null);
+const IsLoginValue = localStorage.getItem("login");
 // export async function getTodo() {
 //   const todoData = await fetch("https://rahanik.iran.liara.run/", {
 //     cache: "no-store",
@@ -12,7 +13,7 @@ const ToDoContextProvider = createContext(null);
 function TodoContext({ children }) {
   const [todoData, setTodoData] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(JSON.parse(IsLoginValue));
   useEffect(() => {
     setTimeout(async () => {
       const res = await fetch("https://rahanik.iran.liara.run", {
@@ -26,6 +27,10 @@ function TodoContext({ children }) {
       setIsLoading(false);
     }, 1000);
   }, []);
+  useEffect(() => {
+    localStorage.setItem("login", JSON.stringify(isLogin));
+  }, [isLogin]);
+
   return (
     <ToDoContextProvider.Provider
       value={{ todoData, setTodoData, isLoading, isLogin, setIsLogin }}

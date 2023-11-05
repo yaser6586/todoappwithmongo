@@ -1,7 +1,12 @@
+"use client";
 import Link from "next/link";
 import React from "react";
+import { useTodo } from "./TodoContext";
+import Login from "../login/page";
 
 function Navbar() {
+  const { isLogin } = useTodo();
+
   return (
     <div className="navbar bg-base-300 ">
       <div className="navbar-start ">
@@ -33,6 +38,11 @@ function Navbar() {
             <li>
               <Link href={"about"}>about</Link>
             </li>
+            {!isLogin && (
+              <li>
+                <Link href={"/login"}>login</Link>
+              </li>
+            )}
           </ul>
         </div>
         <Link href={"/"} className="btn btn-ghost normal-case text-xl">
@@ -48,9 +58,32 @@ function Navbar() {
           <li>
             <Link href={"about"}>about</Link>
           </li>
+          {!isLogin && (
+            <li>
+              <Link href={"/login"}>login</Link>
+            </li>
+          )}
         </ul>
       </div>
-      <div className="navbar-end"></div>
+      <div className="navbar-end">
+        {isLogin && (
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img src="/mypic.jpg" />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <Link href={"/login"}>Logout</Link>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
