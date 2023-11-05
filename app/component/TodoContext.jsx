@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ToDoContextProvider = createContext(null);
-const IsLoginValue = localStorage.getItem("login");
+const IsLoginValue = window.localStorage.getItem("login");
 // export async function getTodo() {
 //   const todoData = await fetch("https://rahanik.iran.liara.run/", {
 //     cache: "no-store",
@@ -28,7 +28,7 @@ function TodoContext({ children }) {
     }, 1000);
   }, []);
   useEffect(() => {
-    localStorage.setItem("login", JSON.stringify(isLogin));
+    window.localStorage.setItem("login", JSON.stringify(isLogin));
   }, [isLogin]);
 
   return (

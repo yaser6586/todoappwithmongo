@@ -2,7 +2,6 @@
 import Link from "next/link";
 import React from "react";
 import { useTodo } from "./TodoContext";
-import Login from "../login/page";
 
 function Navbar() {
   const { isLogin } = useTodo();
