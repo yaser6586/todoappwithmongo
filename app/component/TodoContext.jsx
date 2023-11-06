@@ -3,7 +3,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ToDoContextProvider = createContext(null);
+
 // const IsLoginValue = localStorage.getItem("login");
+
 // export async function getTodo() {
 //   const todoData = await fetch("https://rahanik.iran.liara.run/", {
 //     cache: "no-store",
@@ -13,11 +15,20 @@ const ToDoContextProvider = createContext(null);
 function TodoContext({ children }) {
   const [todoData, setTodoData] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLogin, setIsLogin] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
-    const IsLoginValue = localStorage.getItem("login");
-    setIsLogin(JSON.parse(IsLoginValue));
+    if (window !== "undefined") {
+      const initial = localStorage.getItem("login") || false;
+      // setIsLogin(JSON.parse(initial));
+      if (initial === "true") {
+        setIsLogin(true);
+      }
+    }
   }, []);
+  useEffect(() => {
+    localStorage.setItem("login", JSON.stringify(isLogin));
+  }, [isLogin]);
+
   useEffect(() => {
     setTimeout(async () => {
       const res = await fetch("https://rahanik.iran.liara.run", {
@@ -29,11 +40,8 @@ function TodoContext({ children }) {
       const todo = await res.json();
       setTodoData(todo);
       setIsLoading(false);
-    }, 1000);
+    }, 100);
   }, []);
-  useEffect(() => {
-    localStorage.setItem("login", JSON.stringify(isLogin));
-  }, [isLogin]);
 
   return (
     <ToDoContextProvider.Provider
@@ -45,6 +53,16 @@ function TodoContext({ children }) {
 }
 
 export default TodoContext;
+
+// export async function getServerSideProps(req) {
+//   const cookie = parseCookie(req);
+//   const initial = await cookie.login;
+//   return {
+//     props: {
+//       initial,
+//     },
+//   };
+// }
 
 export function useTodo() {
   return useContext(ToDoContextProvider);

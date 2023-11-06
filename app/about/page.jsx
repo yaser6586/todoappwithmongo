@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import React from "react";
-import { useTodo } from "../component/TodoContext";
+import React, { useEffect } from "react";
 
 function About() {
-  const { isLogin } = useTodo();
-  if (!isLogin) {
-    redirect("/login");
-  }
+  useEffect(() => {
+    if (localStorage.getItem("login") === "false") {
+      setTimeout(() => redirect("/login"), 1);
+    }
+  }, []);
   return (
     <>
       <div

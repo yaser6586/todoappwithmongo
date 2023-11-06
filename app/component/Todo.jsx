@@ -67,8 +67,8 @@ function Todo({ data }) {
   if (!isEdit) {
     content = (
       <>
-        <tr className="bg-base-200 my-2">
-          <td id={data.id}>{data.text}</td>
+        <tr key={data._id} className="bg-base-200 my-2">
+          <td>{data.text}</td>
           <td>
             <button
               className="btn btn-sm bg-success w-24"
