@@ -9,11 +9,11 @@ import { useEffect } from "react";
 
 export default function Home() {
   const { todoData, isLoading } = useTodo();
-  useEffect(() => {
-    if (localStorage.getItem("login") === "false") {
-      setTimeout(() => redirect("/login"), 1);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("login") === "false") {
+  //     setTimeout(() => redirect("/login"), 1);
+  //   }
+  // }, [];
   return (
     <div className="min-h-screen text-center my-10">
       <AddTodo />

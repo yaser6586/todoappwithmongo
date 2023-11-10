@@ -1,18 +1,48 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import { useTodo } from "./TodoContext";
+import { API_URL } from "@/config/config";
 
 function AddTodo() {
   const { todoData, setTodoData } = useTodo();
   const [input, setInput] = useState("");
   const [id, setId] = useState("");
+
+  async function handleAdd() {
+    await fetch(`${API_URL}/api/todolist`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Basic ${btoa(`test:test`)}`,
+      },
+      body: JSON.stringify({ text: input, isdone: false }),
+    })
+      .then(
+        (res) => res.json()
+        // console.log(res)
+      )
+      .then((res) => {
+        // console.log(res);
+        setId(res.insertedId);
+        // console.log(id);
+      });
+    // .catch((err) => {
+    //   console.log(err);
+    // });
+  }
+
   // const [isAdded, setIsAdded] = useState(false);
 
   // if (isAdded) {
   //   redirect("/");
   // }
+  useEffect(
+    () => setTodoData([...todoData, { _id: id, text: input, isdone: false }]),
+    [id]
+  );
+
   return (
     <>
       <input
@@ -25,23 +55,13 @@ function AddTodo() {
       />
       <button
         className="btn btn-accent mx-5"
-        onClick={async () => {
-          await fetch("https://rahanik.iran.liara.run", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-              Authorization: `Basic ${btoa(`test:test`)}`,
-            },
-            body: `text=${input}`,
-          })
-            .then((res) => res.json())
-            .then((res) => setId(res.id))
-            .catch((err) => {
-              console.log(err);
-            });
+        onClick={() => {
+          handleAdd();
           // setIsAdded(true);
-          setTodoData([...todoData, { id: id, text: input }]);
+          // setTimeout(() => handleAddToContext(), 1);
+          // setTodoData([...todoData, { _id: id, text: input, isdone: false }]);
         }}
+
         //   axios
         //     .post("https://rahanik.iran.liara.run/add", { text: input })
         //     .then((res) => console.log(res.data))

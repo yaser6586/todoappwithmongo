@@ -1,6 +1,7 @@
-import { redirect } from "next/navigation";
+"use vlient";
 import React, { useState } from "react";
 import { useTodo } from "./TodoContext";
+import { API_URL } from "@/config/config";
 
 function Todo({ data }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -32,22 +33,22 @@ function Todo({ data }) {
   // }
   async function handleDelete(id) {
     setTodoData(todoData.filter((dt) => dt._id !== data._id));
-    await fetch("https://rahanik.iran.liara.run/" + id, {
+    await fetch(`${API_URL}/api/deltodo/` + id, {
       method: "DELETE",
       headers: {
-        Authorization: `Basic ${btoa(`test:test`)}`,
+        // Authorization: `Basic ${btoa(`test:test`)}`,
       },
     }).then((res) => console.log(res));
     // setIsDeleted(true);
   }
   async function handleEdit(id) {
-    await fetch("https://rahanik.iran.liara.run", {
+    await fetch(`${API_URL}/api/editodo/${id}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        Authorization: `Basic ${btoa(`test:test`)}`,
+        "Content-Type": "application/json",
+        // Authorization: `Basic ${btoa(`test:test`)}`,
       },
-      body: `text=${value}&id=${id}`,
+      body: JSON.stringify({ text: value }),
     });
 
     // setIsSaved(true);
@@ -67,17 +68,22 @@ function Todo({ data }) {
   if (!isEdit) {
     content = (
       <>
-        <tr key={data._id} className="bg-base-200 my-2">
+        <tr className="bg-base-200 my-2">
+          <th>
+            <label>
+              <input type="checkbox" className="checkbox" />
+            </label>
+          </th>
           <td>{data.text}</td>
           <td>
             <button
-              className="btn btn-sm bg-success w-24"
+              className="btn btn-xs bg-success px-4 "
               onClick={() => setIsEdit(true)}
             >
               edit
             </button>
             <button
-              className="btn btn-sm bg-error w-24"
+              className="btn btn-xs bg-error "
               onClick={() => handleDelete(data._id)}
             >
               delete
@@ -90,6 +96,11 @@ function Todo({ data }) {
     content = (
       <>
         <tr className="bg-base-200 my-2">
+          <th>
+            <label>
+              <input type="checkbox" className="checkbox" />
+            </label>
+          </th>
           <td id={data.id}>
             <input
               className=" lg:input "
@@ -100,7 +111,7 @@ function Todo({ data }) {
           </td>
           <td>
             <button
-              className="btn btn-sm bg-success w-24"
+              className="btn btn-xs bg-success w-24"
               onClick={() => handleEdit(data._id)}
             >
               save

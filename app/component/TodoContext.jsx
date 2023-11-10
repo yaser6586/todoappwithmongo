@@ -1,5 +1,6 @@
 "use client";
 
+import { API_URL } from "@/config/config";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ToDoContextProvider = createContext(null);
@@ -31,17 +32,21 @@ function TodoContext({ children }) {
 
   useEffect(() => {
     setTimeout(async () => {
-      const res = await fetch("https://rahanik.iran.liara.run", {
+      await fetch(`${API_URL}/api/todolist`, {
         method: "GET",
         headers: {
-          Authorization: `Basic ${btoa(`test:test`)}`,
+          // Authorization: `Basic ${btoa(`test:test`)}`,
         },
-      });
-      const todo = await res.json();
-      setTodoData(todo);
+      })
+        .then((res) => res.json())
+        .then((res) => setTodoData(res));
+
       setIsLoading(false);
-    }, 100);
+    }, 1);
   }, []);
+  // useEffect(() => {
+  //   console.log(todoData);
+  // }, [todoData]);
 
   return (
     <ToDoContextProvider.Provider
