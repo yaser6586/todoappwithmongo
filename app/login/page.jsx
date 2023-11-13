@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useTodo } from "../component/TodoContext";
 import { redirect } from "next/navigation";
+import { API_URL } from "@/config/config";
 
 function Login() {
   const { isLogin, setIsLogin } = useTodo();
@@ -18,9 +19,17 @@ function Login() {
     setIsLogin(true);
     redirect("/");
   }
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setSignIn({ username: input.userInput, password: input.passInput });
+    await fetch(`${API_URL}/api/user`, {
+      method: "POST",
+      body: JSON.stringify({
+        username: signIn.username,
+        password: signIn.password,
+      }),
+    }).then((res) => console.log(res));
+    // .then((res) => console.log(res));
   }
   function handleSignOut(e) {
     e.preventDefault();

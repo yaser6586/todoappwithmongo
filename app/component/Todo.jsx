@@ -7,6 +7,7 @@ function Todo({ data }) {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState(data.text);
   const { todoData, setTodoData } = useTodo();
+  const [isDone, setIsDone] = useState((data && data.isdone) || false);
 
   // const [isSaved, setIsSaved] = useState(false);
   // const [isDeleted, setIsDeleted] = useState(false);
@@ -64,6 +65,32 @@ function Todo({ data }) {
 
     setIsEdit(false);
   }
+  async function handleDone(e, id) {
+    if (e.target.checked) {
+      setIsDone(true);
+    } else {
+      setIsDone(false);
+    }
+    const newData = todoData.map((todos) => {
+      if (todos._id === id) {
+        return { ...todos, isdone: isDone };
+      } else {
+        return todos;
+      }
+    });
+    setTodoData(newData);
+
+    await fetch(`${API_URL}/api/editdone/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Basic ${btoa(`test:test`)}`,
+      },
+      body: JSON.stringify({ isdone: isDone }),
+    });
+
+    // setIsSaved(true);
+  }
   let content = null;
   if (!isEdit) {
     content = (
@@ -71,10 +98,23 @@ function Todo({ data }) {
         <tr className="bg-base-200 my-2">
           <th>
             <label>
-              <input type="checkbox" className="checkbox" />
+              {data.isdone && isDone ? (
+                <input
+                  type="checkbox"
+                  className="checkbox "
+                  onChange={(e) => handleDone(e, data._id)}
+                  checked
+                />
+              ) : (
+                <input
+                  type="checkbox"
+                  className="checkbox "
+                  onChange={(e) => handleDone(e, data._id)}
+                />
+              )}
             </label>
           </th>
-          <td>{data.text}</td>
+          <td>{!isDone ? data.text : <s>{data.text}</s>}</td>
           <td>
             <button
               className="btn btn-xs bg-success px-4 "
@@ -98,7 +138,7 @@ function Todo({ data }) {
         <tr className="bg-base-200 my-2">
           <th>
             <label>
-              <input type="checkbox" className="checkbox" />
+              <input type="checkbox" className="checkbox" disabled />
             </label>
           </th>
           <td id={data.id}>

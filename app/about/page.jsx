@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 import React, { useEffect } from "react";
 
 function About() {
-  useEffect(() => {
-    if (localStorage.getItem("login") === "false") {
-      setTimeout(() => redirect("/login"), 1);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("login") === "false") {
+  //     setTimeout(() => redirect("/login"), 1);
+  //   }
+  // }, []);
   return (
     <>
       <div

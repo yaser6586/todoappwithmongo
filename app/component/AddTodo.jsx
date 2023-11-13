@@ -27,10 +27,12 @@ function AddTodo() {
         // console.log(res);
         setId(res.insertedId);
         // console.log(id);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    // .catch((err) => {
-    //   console.log(err);
-    // });
+
+    setTodoData([...todoData, { _id: id, text: input, isdone: false }]);
   }
 
   // const [isAdded, setIsAdded] = useState(false);
@@ -38,10 +40,10 @@ function AddTodo() {
   // if (isAdded) {
   //   redirect("/");
   // }
-  useEffect(
-    () => setTodoData([...todoData, { _id: id, text: input, isdone: false }]),
-    [id]
-  );
+  // useEffect(
+  //   () => setTodoData([...todoData, { _id: id, text: input, isdone: false }]),
+  //   [id]
+  // );
 
   return (
     <>
@@ -55,12 +57,12 @@ function AddTodo() {
       />
       <button
         className="btn btn-accent mx-5"
-        onClick={() => {
-          handleAdd();
+        onClick={
+          handleAdd
           // setIsAdded(true);
           // setTimeout(() => handleAddToContext(), 1);
           // setTodoData([...todoData, { _id: id, text: input, isdone: false }]);
-        }}
+        }
 
         //   axios
         //     .post("https://rahanik.iran.liara.run/add", { text: input })
