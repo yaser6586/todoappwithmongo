@@ -33,7 +33,6 @@ export const authOptions = {
       },
 
       async authorize(credentials) {
-        const { username, password } = credentials;
         //   const user = {
         //     id: 1,
         //     username: "test",
