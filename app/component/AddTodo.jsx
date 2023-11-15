@@ -4,6 +4,7 @@ import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import { useTodo } from "./TodoContext";
 import { API_URL } from "@/config/config";
+import { HiOutlineDocumentAdd } from "react-icons/hi";
 
 function AddTodo() {
   const { todoData, setTodoData } = useTodo();
@@ -56,7 +57,7 @@ function AddTodo() {
         }}
       />
       <button
-        className="btn btn-accent mx-5"
+        className="text-lime-700 align-middle ml-4 "
         onClick={
           handleAdd
           // setIsAdded(true);
@@ -68,7 +69,7 @@ function AddTodo() {
         //     .post("https://rahanik.iran.liara.run/add", { text: input })
         //     .then((res) => console.log(res.data))
       >
-        add
+        <HiOutlineDocumentAdd size={45} />
       </button>
     </>
   );

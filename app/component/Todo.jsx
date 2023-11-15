@@ -2,6 +2,9 @@
 import React, { useState } from "react";
 import { useTodo } from "./TodoContext";
 import { API_URL } from "@/config/config";
+import { FiEdit } from "react-icons/fi";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { FaRegSave } from "react-icons/fa";
 
 function Todo({ data }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -116,17 +119,14 @@ function Todo({ data }) {
           </th>
           <td>{!isDone ? data.text : <s>{data.text}</s>}</td>
           <td>
-            <button
-              className="btn btn-xs bg-success px-4 "
-              onClick={() => setIsEdit(true)}
-            >
-              edit
+            <button className="text-blue-700 " onClick={() => setIsEdit(true)}>
+              <FiEdit size={30} />
             </button>
             <button
-              className="btn btn-xs bg-error "
+              className="ml-4 text-red-600 "
               onClick={() => handleDelete(data._id)}
             >
-              delete
+              <RiDeleteBinLine size={30} />
             </button>
           </td>
         </tr>
@@ -151,9 +151,10 @@ function Todo({ data }) {
           </td>
           <td>
             <button
-              className="btn btn-xs bg-success w-24"
+              className="text-green-700"
               onClick={() => handleEdit(data._id)}
             >
+              <FaRegSave size={30} />
               save
             </button>
           </td>
