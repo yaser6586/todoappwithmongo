@@ -23,7 +23,7 @@ function About() {
             <h1 className="mb-5 text-5xl font-bold">Dear visitor</h1>
             <p className="mb-5 text-xl text-justify ">
               This app is developed by{" "}
-              <span className="text-yellow-500">Enger Yaser Hoseini</span> , in
+              <span className="text-yellow-500">Engr Yaser Hoseini</span> , in
               home page you are able to add task or todos and after add the todo
               will be added to mongodb database and the data is added to state
               after that data will be shared in list with context Provider duo

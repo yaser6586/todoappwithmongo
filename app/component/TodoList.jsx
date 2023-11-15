@@ -12,7 +12,7 @@ function TodoList({ data }) {
         {/* head */}
         <thead>
           <tr>
-            <th>status</th>
+            <th>STATUS</th>
             <th className="w-3/4">TODO</th>
             <th>OPERATIONS</th>
           </tr>

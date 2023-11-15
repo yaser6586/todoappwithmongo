@@ -1,10 +1,17 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useTodo } from "./TodoContext";
+import { useSession } from "next-auth/react";
 
 function Navbar() {
-  const { isLogin } = useTodo();
+  // const { isLogin } = useTodo();
+  const { data: session, status } = useSession();
+  // const [isLogin, setIsLogin] = useState(status);
+
+  // if (status === "authenticated") {
+  //   setIsLogin(true);
+  // }
 
   return (
     <div className="navbar bg-base-300 ">
@@ -37,11 +44,11 @@ function Navbar() {
             <li>
               <Link href={"about"}>about</Link>
             </li>
-            {!isLogin && (
+            {/* {!isLogin && (
               <li>
-                <Link href={"/login"}>login</Link>
+                <Link href={"/api/auth/signin"}>login</Link>
               </li>
-            )}
+            )} */}
           </ul>
         </div>
         <Link href={"/"} className="btn btn-ghost normal-case text-xl">
@@ -57,15 +64,15 @@ function Navbar() {
           <li>
             <Link href={"about"}>about</Link>
           </li>
-          {!isLogin && (
+          {status !== "authenticated" && (
             <li>
-              <Link href={"/login"}>login</Link>
+              <Link href={"/api/auth/signin"}>login</Link>
             </li>
           )}
         </ul>
       </div>
       <div className="navbar-end">
-        {isLogin && (
+        {status === "authenticated" && (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
@@ -77,7 +84,7 @@ function Navbar() {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link href={"/login"}>Logout</Link>
+                <Link href={"/api/auth/signout"}>Logout</Link>
               </li>
             </ul>
           </div>

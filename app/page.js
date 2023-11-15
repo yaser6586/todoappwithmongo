@@ -7,8 +7,10 @@ import { redirect } from "next/navigation";
 import Login from "./login/page";
 import { useEffect } from "react";
 
+
 export default function Home() {
   const { todoData, isLoading } = useTodo();
+  
   // useEffect(() => {
   //   if (localStorage.getItem("login") === "false") {
   //     setTimeout(() => redirect("/login"), 1);

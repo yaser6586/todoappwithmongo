@@ -2,6 +2,7 @@
 
 import { API_URL } from "@/config/config";
 import { createContext, useContext, useEffect, useState } from "react";
+import { SessionProvider } from "next-auth/react";
 
 const ToDoContextProvider = createContext(null);
 
@@ -13,7 +14,7 @@ const ToDoContextProvider = createContext(null);
 //   });
 //   return todoData.json();
 // }
-function TodoContext({ children }) {
+function TodoContext({ children, session }) {
   const [todoData, setTodoData] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
@@ -49,11 +50,13 @@ function TodoContext({ children }) {
   // }, [todoData]);
 
   return (
-    <ToDoContextProvider.Provider
-      value={{ todoData, setTodoData, isLoading, isLogin, setIsLogin }}
-    >
-      {children}
-    </ToDoContextProvider.Provider>
+    <SessionProvider session={session}>
+      <ToDoContextProvider.Provider
+        value={{ todoData, setTodoData, isLoading, isLogin, setIsLogin }}
+      >
+        {children}
+      </ToDoContextProvider.Provider>
+    </SessionProvider>
   );
 }
 
